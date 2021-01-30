@@ -35,14 +35,14 @@ function init() {
     var wing = [];
     for (var i = 0; i < 8; i++) {
         var col = [];
-        for (var j = 0; j < 4; j++) {
+        for (var j = 0; j < 2; j++) {
             col.push(Math.floor(game.colors * Math.random()));
         }
         wing.push(col);
     }
     game.wing = wing;
     game.next = Math.floor(6 * Math.random());
-    game.current = 0;
+    game.current = Math.floor(6 * Math.random());
     game.cursor = 0;
     game.score = 0;
     game.level = 0;
@@ -52,7 +52,7 @@ function init() {
     game.vel = 0;
     game.angle = 0;
     game.startTime = +new Date();
-    game.timer = setInterval(update, 1000 / 24);;
+    game.timer = setInterval(update, 1000 / 24);
 }
 function append() {
     var col = game.wing[game.cursor]
