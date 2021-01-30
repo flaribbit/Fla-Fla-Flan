@@ -58,9 +58,11 @@ function append() {
     var col = game.wing[game.cursor]
     var len = col.length;
     col.push(game.current);
+    playSound("set");
     if (col.length >= 3 && col[len - 2] == col[len]) {
         col.splice(len - 2, 3);
         game.score += 3;
+        playSound("erase");
     }
     game.current = game.next;
     game.next = Math.floor(game.colors * Math.random());
@@ -96,4 +98,9 @@ function update() {
         clearInterval(game.timer);
         window.location.reload();
     }
+}
+function playSound(name) {
+    var sound = document.querySelector("audio#" + name);
+    sound.play();
+    sound.currentTime = 0;
 }
