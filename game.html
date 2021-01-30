@@ -23,7 +23,7 @@
         <use transform="rotate(20) scale(-1 1) translate(30 0)" xlink:href="#line" />
         <use transform="rotate(-20) translate(30 0)" xlink:href="#line" />
         <g v-for="(c,i) in data_tr" :transform="c+' rotate('+(-angle).toFixed(1)+')'">
-          <use v-for="(e,j) in wing[i]" :class="data_cl[e]" :transform="'translate(0 '+j*64+')'" xlink:href="#crystal" />
+          <use v-for="(e,j) in wing[i]" :class="data_cl[e]" :y="j*64" xlink:href="#crystal" />
           <g v-if="i==cursor" :transform="'translate(0 '+wing[i].length*64+')'">
             <use xlink:href="#cursor" />
             <use y="48" :class="data_cl[current]" xlink:href="#crystal" />
