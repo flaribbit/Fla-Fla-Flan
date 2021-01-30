@@ -17,6 +17,51 @@ var game = new Vue({
         angle: 0,
         startTime: 0,
         timer: 0,
+        status: "title",
+    },
+    methods: {
+        append: function () {
+            var col = this.wing[this.cursor]
+            var len = col.length;
+            col.push(this.current);
+            playSound("set");
+            if (col.length >= 3 && col[len - 2] == col[len]) {
+                col.splice(len - 2, 3);
+                this.score += 3;
+                playSound("erase");
+            }
+            this.current = this.next;
+            this.next = Math.floor(this.colors * Math.random());
+            var acc = 0;
+            for (var i = 0; i < 8; i++) {
+                acc += this.wing[i].length * wt[i];
+            }
+            this.acc = acc;
+        },
+        init: function () {
+            var wing = [];
+            for (var i = 0; i < 8; i++) {
+                var col = [];
+                for (var j = 0; j < 2; j++) {
+                    col.push(Math.floor(this.colors * Math.random()));
+                }
+                wing.push(col);
+            }
+            this.wing = wing;
+            this.next = Math.floor(6 * Math.random());
+            this.current = Math.floor(6 * Math.random());
+            this.cursor = 0;
+            this.score = 0;
+            this.level = 0;
+            this.colors = 6;
+            this.balance = 0;
+            this.acc = 0;
+            this.vel = 0;
+            this.angle = 0;
+            this.startTime = +new Date();
+            this.timer = setInterval(update, 1000 / 24);
+            playSound("music");
+        }
     }
 });
 
@@ -29,49 +74,6 @@ document.addEventListener('keydown', function (e) {
     };
 });
 
-init();
-
-function init() {
-    var wing = [];
-    for (var i = 0; i < 8; i++) {
-        var col = [];
-        for (var j = 0; j < 2; j++) {
-            col.push(Math.floor(game.colors * Math.random()));
-        }
-        wing.push(col);
-    }
-    game.wing = wing;
-    game.next = Math.floor(6 * Math.random());
-    game.current = Math.floor(6 * Math.random());
-    game.cursor = 0;
-    game.score = 0;
-    game.level = 0;
-    game.colors = 6;
-    game.balance = 0;
-    game.acc = 0;
-    game.vel = 0;
-    game.angle = 0;
-    game.startTime = +new Date();
-    game.timer = setInterval(update, 1000 / 24);
-}
-function append() {
-    var col = game.wing[game.cursor]
-    var len = col.length;
-    col.push(game.current);
-    playSound("set");
-    if (col.length >= 3 && col[len - 2] == col[len]) {
-        col.splice(len - 2, 3);
-        game.score += 3;
-        playSound("erase");
-    }
-    game.current = game.next;
-    game.next = Math.floor(game.colors * Math.random());
-    var acc = 0;
-    for (var i = 0; i < 8; i++) {
-        acc += game.wing[i].length * wt[i];
-    }
-    game.acc = acc;
-}
 function setLevel(time) {
     game.level = Math.floor(time / 6);
     game.vel = 0.004 * (20 + game.level);
@@ -96,11 +98,12 @@ function update() {
     game.angle = game.balance / 8;
     if (game.balance < -200 || game.balance > 200) {
         clearInterval(game.timer);
+        alert("GAME OVER\nSCORE: " + game.score);
         window.location.reload();
     }
 }
 function playSound(name) {
-    var sound = document.querySelector("audio#" + name);
+    var sound = document.querySelector("audio#au_" + name);
     sound.play();
     sound.currentTime = 0;
 }
