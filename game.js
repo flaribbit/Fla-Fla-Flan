@@ -69,7 +69,7 @@ document.addEventListener('keydown', function (e) {
     switch (e.code) {
         case "ArrowLeft": if (game.cursor > 0) game.cursor -= 1; break;
         case "ArrowRight": if (game.cursor < 7) game.cursor += 1; break;
-        case "KeyZ": case "Space": append(); break;
+        case "KeyZ": case "Space": game.append(); break;
         default: break;
     };
 });
