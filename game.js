@@ -11,11 +11,12 @@ var game = new Vue({
         score: 0,
         level: 0,
         colors: 6,
+        balance: 0,
         acc: 0,
         vel: 0,
-        skirt: 0,
-        body: 0,
         angle: 0,
+        startTime: 0,
+        timer: 0,
     }
 });
 
@@ -29,13 +30,8 @@ document.addEventListener('keydown', function (e) {
 });
 
 init();
-setInterval(update, 1000 / 24);
 
 function init() {
-    game.skirt = 0;
-    game.body = 0;
-    game.next = Math.floor(6 * Math.random());
-    game.angle = 0;
     var wing = [];
     for (var i = 0; i < 8; i++) {
         var col = [];
@@ -45,6 +41,18 @@ function init() {
         wing.push(col);
     }
     game.wing = wing;
+    game.next = Math.floor(6 * Math.random());
+    game.current = 0;
+    game.cursor = 0;
+    game.score = 0;
+    game.level = 0;
+    game.colors = 6;
+    game.balance = 0;
+    game.acc = 0;
+    game.vel = 0;
+    game.angle = 0;
+    game.startTime = +new Date();
+    game.timer = setInterval(update, 1000 / 24);;
 }
 function append() {
     var col = game.wing[game.cursor]
@@ -58,7 +66,7 @@ function append() {
     game.next = Math.floor(game.colors * Math.random());
     var acc = 0;
     for (var i = 0; i < 8; i++) {
-        acc += game.wing[i].length * wt[i] * 0.01;
+        acc += game.wing[i].length * wt[i];
     }
     game.acc = acc;
 }
@@ -74,6 +82,18 @@ function setLevel(time) {
     }
 }
 function update() {
-    game.vel += game.acc;
-    game.angle += game.vel;
+    setLevel((+new Date() - game.startTime) * 0.001);
+    if (game.acc == 0) {
+        if (game.balance > 0) {
+            game.balance -= Math.min(game.balance, 0.4);
+        } else {
+            game.balance += Math.min(-game.balance, 0.4);
+        }
+    }
+    game.balance += game.acc * game.vel;
+    game.angle = game.balance / 8;
+    if (game.balance < -200 || game.balance > 200) {
+        clearInterval(game.timer);
+        window.location.reload();
+    }
 }
