@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1, user-scalable=no">
   <link rel="stylesheet" href="./game.css">
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
   <script src="./game.js" defer></script>
@@ -36,7 +36,7 @@
               <use xlink:href="#cursor" />
               <use y="48" :class="data_cl[current]" xlink:href="#crystal" />
             </g>
-            <rect x="-24" y="-12" width="48" :height="(wing[i].length+2)*64" fill="#0000" @click="cursor=i;append()" />
+            <rect x="-24" y="-12" width="48" :height="(wing[i].length+2)*64" style="fill:#0000" @click="cursor=i;append()" />
           </g>
         </g>
         <g id="skirt" transform="translate(0 -80)">

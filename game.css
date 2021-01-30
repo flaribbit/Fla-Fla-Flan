@@ -1,3 +1,7 @@
+body {
+	margin: 0;
+}
+
 use.red {
 	fill: #d63333;
 }
