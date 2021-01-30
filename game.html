@@ -13,6 +13,9 @@
 <body>
   <svg id="maingame" height="1280px" width="720px" style="background: antiquewhite;">
     <use transform="translate(360 720)" xlink:href="#platform" />
+    <text x="40" y="100" style="font-family: Helvetica; font-size: 48px;">SCORE: {{score}}</text>
+    <text x="600" y="100" style="font-family: Helvetica; text-anchor: middle; font-size: 48px;">NEXT</text>
+    <use x="600" y="130" :class="data_cl[next]" xlink:href="#crystal" />
     <g id="flan" transform="translate(360 760)">
       <use id="legL" transform="translate(30 0) scale(-1 1)" xlink:href="#leg" />
       <use id="legR" transform="translate(-30 0)" xlink:href="#leg" />
@@ -21,6 +24,10 @@
         <use transform="rotate(-20) translate(30 0)" xlink:href="#line" />
         <g v-for="(c,i) in data_tr" :transform="c+' rotate('+(-angle).toFixed(1)+')'">
           <use v-for="(e,j) in wing[i]" :class="data_cl[e]" :transform="'translate(0 '+j*64+')'" xlink:href="#crystal" />
+          <g v-if="i==cursor" :transform="'translate(0 '+wing[i].length*64+')'">
+            <use xlink:href="#cursor" />
+            <use y="48" :class="data_cl[current]" xlink:href="#crystal" />
+          </g>
         </g>
       </g>
       <g id="skirt" transform="translate(0 -80)">
@@ -59,6 +66,10 @@
         <path d="M3.9 -3.15 L0.95 -3.7 Q-1.55 -3.5 -3.25 -1.8 -4.9 -0.1 -4.75 2.15 -4.6 3.55 -3.75 4.7 -5.25 4.1 -6.2 2.9 -7.2 1.65 -7.35 0.15 -7.5 -2.05 -5.85 -3.8 -4.15 -5.5 -1.65 -5.65 0.05 -5.8 1.55 -5.05 3.0 -4.4 3.9 -3.15 M0.85 43.8 L0.75 47.25 0.55 49.05 -14.2 20.3 -3.5 8.15 -10.2 21.2 0.85 43.8" fill="#ffffff" fill-opacity="0.6" fill-rule="evenodd" stroke="none" />
         <path d="M0.85 43.8 L0.85 43.5 13.0 21.1 6.35 7.15 18.2 20.3 0.55 53.25 0.75 47.25 0.85 43.8" fill="#333333" fill-opacity="0.5019608" fill-rule="evenodd" stroke="none" />
         <path d="M-0.05 -4.75 Q-2.6 -4.75 -4.45 -3.05 -6.25 -1.35 -6.25 1.05 -6.25 2.55 -5.45 3.9 -4.65 5.15 -3.3 5.95 L-16.75 19.8 0.25 51.6 17.3 19.8 3.55 5.75 Q6.2 4.0 6.2 1.05 6.2 -1.35 4.4 -3.05 2.5 -4.75 -0.05 -4.75 M5.55 -4.95 Q7.9 -2.95 7.9 -0.05 7.9 2.55 5.85 4.55 L19.2 20.1 0.25 60.5 -18.75 20.1 -5.6 4.8 Q-7.95 2.8 -7.95 -0.05 -7.95 -2.95 -5.6 -4.95 -3.3 -6.95 -0.05 -6.95 3.25 -6.95 5.55 -4.95" fill="#693333" fill-rule="evenodd" stroke="none" />
+      </g>
+      <g id="cursor">
+        <path d="M1.65 12.5 L11.5 27.5 -8.5 27.5 1.35 12.5 1.65 12.5" fill="#693333" fill-opacity="0.8156863" fill-rule="evenodd" stroke="none" />
+        <path d="M-0.35 11.0 L9.5 26.0 -10.5 26.0 -0.65 11.0 -0.35 11.0" fill="#ffffff" fill-opacity="0.9019608" fill-rule="evenodd" stroke="none" />
       </g>
     </defs>
   </svg>
