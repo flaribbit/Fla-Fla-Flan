@@ -36,7 +36,7 @@
               <use xlink:href="#cursor" />
               <use y="48" :class="data_cl[current]" xlink:href="#crystal" />
             </g>
-            <rect x="-24" y="-12" width="48" :height="(wing[i].length+2)*64" fill-opacity="0" @click="cursor=i;append()" />
+            <rect x="-24" y="-12" width="48" :height="(wing[i].length+2)*64" style="opacity: 0;" @click="cursor=i;append()" />
           </g>
         </g>
         <g id="skirt" transform="translate(0 -80)">
