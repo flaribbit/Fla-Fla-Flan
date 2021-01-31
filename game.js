@@ -15,6 +15,7 @@ var game = new Vue({
         acc: 0,
         vel: 0,
         angle: 0,
+        face: 0,
         time: 0,
         startTime: 0,
         timer: 0,
@@ -59,6 +60,7 @@ var game = new Vue({
             this.acc = 0;
             this.vel = 0;
             this.angle = 0;
+            this.face = 1;
             this.time = 0;
             this.startTime = +new Date();
             this.timer = setInterval(update, 1000 / 24);
@@ -104,6 +106,18 @@ function update() {
         clearInterval(game.timer);
         alert("GAME OVER\nSCORE: " + game.score);
         window.location.reload();
+    } else if (game.balance < -120 || game.balance > 120) {
+        game.face = 0;
+    } else {
+        if (time % 4 > 3.9) {
+            game.face = 2;
+        } else if (time % 4 > 3.8) {
+            game.face = 3;
+        } else if (time % 4 > 3.7) {
+            game.face = 2;
+        } else {
+            game.face = 1;
+        }
     }
 }
 function playSound(name) {
