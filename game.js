@@ -15,6 +15,7 @@ var game = new Vue({
         acc: 0,
         vel: 0,
         angle: 0,
+        time: 0,
         startTime: 0,
         timer: 0,
         status: "title",
@@ -58,6 +59,7 @@ var game = new Vue({
             this.acc = 0;
             this.vel = 0;
             this.angle = 0;
+            this.time = 0;
             this.startTime = +new Date();
             this.timer = setInterval(update, 1000 / 24);
             playSound("music");
@@ -86,7 +88,9 @@ function setLevel(time) {
     }
 }
 function update() {
-    setLevel((+new Date() - game.startTime) * 0.001);
+    var time = (+new Date() - game.startTime) * 0.001;
+    setLevel(time);
+    game.time = Math.floor(time);
     if (game.acc == 0) {
         if (game.balance > 0) {
             game.balance -= Math.min(game.balance, 0.4);

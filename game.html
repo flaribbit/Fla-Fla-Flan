@@ -22,6 +22,7 @@
     <text v-if="status=='title'" x="360" y="640" style="font-family: Helvetica; text-anchor: middle; font-size: 80px;" @click="status='game';init()">START</text>
     <g v-if="status=='game'">
       <text x="40" y="100" style="font-family: Helvetica; font-size: 48px;">SCORE: {{score}}</text>
+      <text x="40" y="160" style="font-family: Helvetica; font-size: 48px;">TIME: {{time}}</text>
       <text x="600" y="100" style="font-family: Helvetica; text-anchor: middle; font-size: 48px;">NEXT</text>
       <use x="600" y="130" :class="data_cl[next]" xlink:href="#crystal" />
       <g id="flan" transform="translate(360 760)">
