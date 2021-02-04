@@ -43,11 +43,7 @@ var game = new Vue({
         init: function () {
             var wing = [];
             for (var i = 0; i < 8; i++) {
-                var col = [];
-                for (var j = 0; j < 2; j++) {
-                    col.push(Math.floor(this.colors * Math.random()));
-                }
-                wing.push(col);
+                wing.push([Math.floor(this.colors * Math.random())]);
             }
             this.wing = wing;
             this.next = Math.floor(6 * Math.random());
